@@ -1,0 +1,214 @@
+1. Basic Docker Commands (Foundation)
+🔹 docker --version
+
+ Checks Docker version
+ Helps verify installation
+
+🔹 docker pull <image>
+
+ Downloads image from Docker Hub
+Example:
+
+docker pull ubuntu
+
+ Deep concept:
+An image is a read-only layered filesystem. Docker pulls multiple layers (like OS + dependencies) instead of a single file → faster reuse.
+
+🔹 docker images
+
+ Lists all images stored locally
+
+🔹 docker run <image>
+
+ Creates + starts a container
+
+Example:
+
+docker run ubuntu
+
+ Internally:
+
+Creates container from image
+Adds read-write layer
+Starts process inside isolated environment
+🔹 docker run -it ubuntu bash
+
+ Interactive terminal
+
+-i → interactive input
+-t → terminal
+
+ Used to access container shell
+
+🔹 docker ps
+
+ Shows running containers
+
+docker ps -a
+-a → includes stopped containers
+🔹 docker stop <container>
+
+ Stops running container
+
+🔹 docker start <container>
+
+ Starts stopped container
+
+🔹 docker rm <container>
+
+ Deletes container
+
+🔹 docker rmi <image>
+
+ Deletes image
+
+⚙️ 2. Intermediate Commands (Real Usage)
+🔹 docker run -d
+
+Runs container in background (detached mode)
+
+docker run -d nginx
+🔹 docker logs <container>
+
+ Shows container output/logs
+
+🔹 docker exec -it <container> bash
+
+ Enter running container
+
+ Better than run because container is already running
+
+🔹 docker inspect <container>
+
+ Detailed JSON info
+
+Shows:
+
+IP address
+volumes
+configs
+environment variables
+🔹 docker stats
+
+ Real-time CPU, memory usage
+
+ 3. Networking Commands
+🔹 docker network ls
+
+ Lists networks
+
+🔹 docker network create <name>
+
+ Create custom network
+
+docker network create mynet
+🔹 docker run --network=mynet
+
+ Attach container to network
+
+ Deep concept:
+
+Containers communicate via virtual bridge network
+Each container gets its own IP
+ 4. Volume & Storage
+🔹 docker volume create <name>
+
+ Create persistent storage
+
+🔹 docker run -v myvol:/data
+
+ Attach volume
+
+ Why important:
+Containers are temporary → volumes store permanent data
+
+ 5. Image Building (Very Important)
+🔹 docker build -t <name> .
+
+Build image from Dockerfile
+
+🔹 Example Dockerfile:
+FROM ubuntu
+RUN apt update
+CMD ["echo", "Hello"]
+
+Deep concept:
+Each line = new layer → cached → faster rebuilds
+
+6. Environment Variables
+🔹 docker run -e VAR=value
+docker run -e NAME=pawan ubuntu
+
+Inside container:
+
+echo $NAME
+7. Port Mapping
+🔹 docker run -p 8080:80 nginx
+
+Maps:
+
+host port 8080 → container port 80
+
+Without this → container is isolated
+
+8. Advanced Concepts + Commands
+🔹 docker commit
+
+Save container as image
+
+🔹 docker tag
+
+Rename/tag image
+
+🔹 docker push
+
+Upload image to Docker Hub
+
+🔹 docker system prune
+
+Clean unused data
+
+Deletes:
+
+stopped containers
+unused images
+9. Multi-Container (Docker Compose)
+🔹 docker-compose up
+
+Start multiple services
+
+Example:
+
+version: '3'
+services:
+  web:
+    image: nginx
+  db:
+    image: mysql
+
+Used in real projects (web + database)
+Deep Understanding (Very Important for Exams)
+Docker Architecture:
+Client → commands (CLI)
+Daemon (dockerd) → runs containers
+Images → templates
+Containers → running instances
+Key Concepts:
+Containers ≠ VMs (lightweight)
+Uses Linux namespaces + cgroups
+Shares host OS kernel
+Faster than virtual machines
+Pro Tips (Advanced)
+
+✔ Use --name to give container name
+✔ Use --rm for auto delete
+✔ Use docker exec instead of restarting
+✔Use volumes for databases
+
+Example Full Workflow
+docker pull nginx
+docker run -d -p 8080:80 --name web nginx
+docker ps
+docker exec -it web bash
+docker stop web
+docker rm web
