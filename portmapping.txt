@@ -1,0 +1,68 @@
+Docker Port Mapping (-p) Notes
+1. Definition
+
+The -p flag in Docker is used to map a port from the host system to a port inside the container, allowing external access to containerized applications.
+
+2. Syntax
+docker run -p <host_port>:<container_port> <image>
+3. Example
+docker run -p 8080:80 nginx
+Explanation:
+8080 → Port on the host machine
+80 → Port inside the container (where nginx runs)
+
+Access in browser:
+
+http://localhost:8080
+4. How It Works (Concept)
+Containers run in an isolated network by default.
+They are not accessible from outside unless ports are exposed.
+The -p flag creates a connection between host and container.
+Internal Process:
+Docker creates the container
+Assigns it an internal IP address
+Sets up NAT (Network Address Translation)
+
+Maps:
+
+Host Port → Container Port
+5. Key Points
+Host port is used by the user/system
+Container port is where the application runs
+Port mapping is required for web apps, databases, APIs
+6. Variations
+a) Bind to specific IP
+docker run -p 127.0.0.1:8080:80 nginx
+
+Accessible only from local machine
+
+b) Random host port
+docker run -p 80 nginx
+
+Docker assigns a random host port
+
+Check using:
+
+docker ps
+c) Multiple port mapping
+docker run -p 8080:80 -p 3307:3306 mysql
+7. Common Mistakes
+
+Incorrect:
+
+docker run -p 8080 80 nginx
+
+Correct:
+
+docker run -p 8080:80 nginx
+8. Use Cases
+Running web servers (nginx, apache)
+Running databases (mysql, mongodb)
+Running backend applications
+9. Interview Answer
+
+The -p flag is used to publish container ports to the host system, enabling communication between external users and containerized services through port mapping.
+
+10. Summary
+
+Port mapping connects host and container ports, making container applications accessible from outside the Docker environment.
