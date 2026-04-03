@@ -1,0 +1,257 @@
+📘 UNIT: Basic Docker Commands (Full Concept)
+🔹 1. What is Docker? (First understand this clearly)
+
+👉 Definition:
+Docker is a platform that allows you to create, run, and manage applications inside containers.
+
+👉 Real-life Example:
+Think of Docker like a lunchbox (container)
+
+Food = your application
+Lunchbox = container
+No matter where you carry it (school, bus, train), food remains same
+
+✔ Same way → Docker ensures your app runs same everywhere
+
+🔹 2. docker --version
+
+👉 Definition:
+Command to check installed Docker version.
+
+👉 Example:
+
+docker --version
+
+👉 Output:
+
+Docker version 18.x.x
+
+👉 Real-life:
+Like checking your phone model → "Which version am I using?"
+
+🔹 3. docker info
+
+👉 Definition:
+Shows complete system info of Docker.
+
+👉 Example:
+
+docker info
+
+👉 Shows:
+
+Number of containers
+Images
+Storage driver
+
+👉 Real-life:
+Like checking system settings → storage, apps, RAM
+
+🔹 4. docker pull
+
+👉 Definition:
+Used to download image from Docker Hub (internet)
+
+👉 Example:
+
+docker pull httpd
+
+👉 Real-life:
+Like downloading an app from Play Store
+
+✔ httpd = Apache Web Server
+
+🔹 5. docker images
+
+👉 Definition:
+Lists all downloaded images
+
+👉 Example:
+
+docker images
+
+👉 Real-life:
+Like checking installed apps list
+
+🔹 6. docker run (MOST IMPORTANT ⭐)
+
+👉 Definition:
+Creates + starts a container from an image
+
+👉 Syntax:
+
+docker run [OPTIONS] IMAGE
+🔹 Important Options (Exam + Practical)
+✅ -it
+
+👉 Interactive mode
+
+docker run -it ubuntu bash
+
+👉 Real-life:
+Like opening a terminal inside another computer
+
+✅ -d
+
+👉 Run in background
+
+docker run -d nginx
+
+👉 Real-life:
+Like running WhatsApp in background
+
+✅ --name
+
+👉 Give name to container
+
+docker run --name my-container nginx
+
+👉 Real-life:
+Naming your phone "MyPhone"
+
+✅ --rm
+
+👉 Auto delete container after stop
+
+docker run --rm ubuntu
+
+👉 Real-life:
+Like using a disposable cup
+
+✅ -p (VERY IMPORTANT)
+
+👉 Definition:
+Maps host port → container port
+
+docker run -p 8080:80 nginx
+
+👉 Flow:
+
+Browser → localhost:8080 → container:80
+
+👉 Real-life:
+Like forwarding a call from one number to another
+
+✅ -e (Environment Variables ⭐)
+
+👉 Definition:
+Pass variables inside container
+
+docker run -e MY_NAME=Pawan ubuntu bash
+
+Then:
+
+echo $MY_NAME
+
+👉 Output:
+
+Pawan
+🔥 Why Environment Variables?
+
+👉 Without -e:
+
+Hardcoded values
+Need rebuild image
+
+👉 With -e:
+
+Flexible
+Secure
+Reusable
+
+👉 Real-life:
+Like changing language settings without buying new phone
+
+🔹 7. Multiple Environment Variables
+docker run -e APP_ENV=production -e VERSION=1.0 nginx
+
+👉 Real-life:
+Like setting multiple preferences (theme, language, notifications)
+
+🔹 8. Host → Container Variable Passing
+Step 1:
+export APP_PORT=8080
+Step 2:
+docker run -e APP_PORT=$APP_PORT nginx
+
+👉 Real-life:
+Like sharing WiFi password from one device to another
+
+🔹 9. .env File (Professional Way ⭐)
+
+👉 Create file:
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=123
+
+👉 Run:
+
+docker run --env-file .env myapp
+
+👉 Real-life:
+Like saving all settings in one config file
+
+🔹 10. docker ps
+
+👉 Definition:
+Shows running containers
+
+docker ps
+
+👉 Real-life:
+Like checking running apps
+
+🔹 11. docker ps -a
+
+👉 Definition:
+Shows all containers (running + stopped)
+
+docker ps -a
+
+👉 Real-life:
+Like checking installed + closed apps
+
+🔹 12. docker exec
+
+👉 Definition:
+Run command inside running container
+
+docker exec -it container_id bash
+
+👉 Real-life:
+Like entering inside another computer remotely
+
+🔥 IMPORTANT CONCEPT (Exam Question)
+❓ What happens when container stops?
+
+👉 Example:
+
+docker run -e COLLEGE=CSE ubuntu bash
+echo $COLLEGE
+
+👉 When container stops:
+❌ Variable disappears
+
+👉 Reason:
+
+Variables are temporary
+Stored inside container only
+
+👉 Real-life:
+Like writing on whiteboard → erased after class
+
+🔥 FINAL QUICK REVISION (Exam Ready)
+Command	Purpose
+docker pull	Download image
+docker run	Create + start container
+docker ps	Running containers
+docker ps -a	All containers
+docker images	List images
+docker exec	Enter container
+-p	Port mapping
+-e	Environment variable
+-it	Interactive
+-d	Background
+🎯 Pro Tip (Important for Exam)
+
